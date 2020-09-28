@@ -8,10 +8,7 @@ import java.util.ArrayList;
  */
 
 
-public class House {
-    /*private final int MAXLEVELS = 5;
-    private int levelCounter;
-    private Level levels[];*/
+public class House extends CoreMethods{
     private ArrayList<Level> levels;
     private String name;
     
@@ -35,34 +32,10 @@ public class House {
     
     
     public int getLevelCounter(ArrayList<Level> levels){
-        /*int levelCounter = 0;
-        for(int i = 0;i < levels.size(); i++){
-            if(levels[ != null){
-                levelCounter++;
-            }
-            else{
-                break;
-            }
-        }*/
         return levels.size();
     
     }
-    
-    public int searchLevel(String name){
-            int index = 0;
-            boolean  flag = false;
-            for(index=0; index<levels.size() && flag == false; index++){
-                if(levels.get(index).equals(new Level(name))){
-                    flag = true;
-                    break;
-                }
-            }
-            if(flag == false){
-                index = -1;
-            }
-            return index;
-        }
-    
+      
 public int countDevicesOn(){
     int devicesOn=0;
     for(int i=0;i<levels.size(); i++){

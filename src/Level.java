@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 
 
-public class Level {
+public class Level extends CoreMethods{
     /*private int MAXROOMS = 5;
     private int roomCounter;
     private Room rooms[];*/
@@ -30,26 +30,10 @@ public Level(String name){
     }
 
 public int getCounterRooms(ArrayList<Room> rooms){
-    /*int roomCounter = 0;
-    for(int i = 0;i < rooms.length; i++){
-        if(rooms[i] != null){
-            roomCounter++;
-        }
-        else{
-            break;
-        }
-    }*/
     return rooms.size();
 }
 
 public void addRoom(Room room){
-    /*boolean flag = false;
-    if(roomCounter<MAXROOMS){
-        rooms[roomCounter] = room;
-        roomCounter++;
-        flag = true;
-    }
-    return flag;*/
     rooms.add(room);
 }
 
@@ -90,32 +74,13 @@ public void addRoom(Room room){
         this.name = name;
     }
     
-    //searchRoom
-    public int searchRoom(Room otherRoom){
-            int index = 0;
-            boolean  flag = false;
-            for(index=0; index<rooms.size() && flag == false; index++){
-                if(rooms.get(index).equals(otherRoom)){
-                    flag = true;
-                    break;
-                }
-            }
-            if(flag == false){
-                index = -1;
-            }
-            return index;
-        }
-    
     //removeRoom
-    public boolean RemoveRoom(Room room){
-            boolean flag= false;
-            int pos= searchRoom(room);
-
-            if(pos != -1){
-                   rooms.remove(pos);
-            }
-
-            return flag;
+    public boolean RemoveRoom(Room room){        
+        if (searchObject(room, rooms) != -1) {
+            return rooms.remove(room);
+        } else {
+            return false;
+        } 
     }
     
     public String toString(){
@@ -144,7 +109,7 @@ public void addRoom(Room room){
     public boolean switchOnRoom(Room room){
         boolean flag=false;
         int index;
-        index=this.searchRoom(room);
+        index=this.searchObject(room, rooms);
         if(index>-1){
             rooms.get(index).switchOnAllDevices();
             flag=true;
@@ -155,7 +120,7 @@ public void addRoom(Room room){
     public boolean switchOffRoom(Room room){
         boolean flag=false;
         int index;
-        index=this.searchRoom(room);
+        index=this.searchObject(room, rooms);
         if(index>-1){
             rooms.get(index).switchOffAllDevices();
             flag=true;
@@ -164,11 +129,11 @@ public void addRoom(Room room){
     }
     public boolean levelSwitchOffDevice(Room room, Device device){
        boolean found = false;
-       int lRoom = this.searchRoom(room);
+       int lRoom = this.searchObject(room, rooms);
        if(lRoom > -1){
            ArrayList<Device> d;
             d = rooms.get(lRoom).getDevices();
-            int lDevice = rooms.get(lRoom).searchDevice(device);
+            int lDevice = rooms.get(lRoom).searchObject(device, d);
             
             if(lDevice > -1)
                 d.get(lDevice).switchOffDevice();
@@ -180,11 +145,11 @@ public void addRoom(Room room){
     
     public boolean levelSwitchOnDevice(Room room, Device device){
        boolean found = false;
-       int lRoom = this.searchRoom(room);
+       int lRoom = this.searchObject(room, rooms);
        if(lRoom > -1){
             ArrayList<Device> d;
             d = rooms.get(lRoom).getDevices();
-            int lDevice = rooms.get(lRoom).searchDevice(device);
+            int lDevice = rooms.get(lRoom).searchObject(device, d);
             
             if(lDevice > -1)
                 d.get(lDevice).switchOnDevice();

@@ -8,10 +8,7 @@ import java.util.ArrayList;
  */
 
 
-public class Room {
-    /*private final int MAXDEVICES = 20;
-    private int deviceCounter;
-    private Device devices[];*/
+public class Room extends CoreMethods{
     private ArrayList<Device> devices;
     private String IDRoom;
     private String name;
@@ -31,13 +28,6 @@ public class Room {
     }
     
     public void addDevice(Device device){
-        /*boolean flag = false;
-        if(getDeviceCounter() < MAXDEVICES){
-            devices[getDeviceCounter()]=device;
-            setDeviceCounter(getDeviceCounter() + 1);
-            flag = true;
-        }
-       return flag;*/
         devices.add(device);
     }
 
@@ -83,34 +73,13 @@ public class Room {
     public int getDeviceCounter() {
         return devices.size();
     }
-
-
     
-    public int searchDevice(Device otherDevice){
-        int index = 0;
-        boolean  flag = false;
-        for(index=0; index<getDeviceCounter() && flag == false; index++){
-            if(devices.get(index).equals(otherDevice)){
-                flag = true;
-                break;
-            }
-        }
-        if(flag == false){
-            index = -1;
-        }
-        return index;
-    }
-    
-    public boolean  removeDevice(Device device){
-        boolean flag = false;
-        int pos =  searchDevice(device);
-        
-        if(pos!=-1){
-            devices.remove(pos);
-        }
-        
-        return flag;
-        
+    public boolean  removeDevice(Device device){  
+        if (searchObject(device, devices) != -1) {
+            return devices.remove(device);
+        } else {
+            return false;
+        } 
     }
     
     public void switchOffAllDevices(){
@@ -137,6 +106,6 @@ public class Room {
             return flag;
     }
 
-    
+   
 }
 
